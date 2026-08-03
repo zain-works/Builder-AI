@@ -285,7 +285,7 @@ api.defaults.adapter = async (config) => {
     let status = 200;
 
     // 1. Auth routes
-    if (url === "/api/auth/me") {
+    if (url.includes( "/api/auth/me")) {
         const user = getUser();
         if (user) {
             responseData = { user };
