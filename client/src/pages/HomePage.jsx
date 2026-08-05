@@ -77,7 +77,7 @@ const Homepage = () => {
                   onClick={()=>navigate(`/builder/${p._id}`)}>
                     <div className='flex-1 min-w-0'>
                       <p className='text-sm font-medium text-white truncate'>{p.name}
-                        <div className='flex items-center gap-3 mt-0.5'>
+                        <span className='flex items-center gap-3 mt-0.5'>
                           <span className='text-xs text-zinc-300 flex items-center gap-1'>
                             <ClockIcon size={10} />
                             {moment( p.updatedAt || p.createdAt).fromNow() }
@@ -85,7 +85,7 @@ const Homepage = () => {
                           <span className='text-xs text-white/60 font-medium'>
                             v{p.version}
                           </span>
-                        </div>
+                        </span>
                       </p>
                     </div>
                     <div className='flex items-center gap-2'>
