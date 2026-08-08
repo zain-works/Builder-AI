@@ -1,10 +1,9 @@
 import { Project } from "../models/Project.js";
 import crypto from "crypto"
 import { generateProject } from "../services/ai.js";
-import { timeStamp } from "console";
 
 
-function hashContent(){
+function hashContent(content){
     return crypto.createHash("md5").update(content).digest("hex").slice(0,12)
 }
 
@@ -78,7 +77,7 @@ async function runBackgroundGeneration(projectId, prompt) {
                         messages: {
                             role: "assistant",
                             content: `Planned website structure:\n${fileList}`,
-                            timeStamp: new Date(),
+                            timestamp: new Date(),
                         }
                     }
                 })

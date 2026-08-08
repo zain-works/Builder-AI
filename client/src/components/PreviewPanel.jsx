@@ -8,13 +8,19 @@ import SandpackErrorMonitor from './SandpackErrorMonitor'
 // Watches for file edites inside Sandpack editor and saves changes to DB and live state
 const SandpackFileWatcher = ({onLiveFilesChange})=>{
     const {sandpack} = useSandpack()
-    const {files} = sandpack
-    const {activeProject, updateProjectFiles} = useAppContext()
+    const {files, activeFile: sandpackActiveFile} = sandpack
+    const {activeProject, updateProjectFiles, setActiveFile} = useAppContext()
     const activeProjectRef = useRef(activeProject)
 
     useEffect(()=>{
         activeProjectRef.current = activeProject;
     },[activeProject])
+
+    useEffect(()=>{
+        if (sandpackActiveFile) {
+            setActiveFile(sandpackActiveFile);
+        }
+    }, [sandpackActiveFile, setActiveFile]);
 
     useEffect(()=>{
         const project = activeProjectRef.current;
