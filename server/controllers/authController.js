@@ -35,7 +35,7 @@ export async function register(req, res) {
         password
     })
 
-    setSessionCookie(res, {userID: user._id.toString(), email: user.email})
+    setSessionCookie(res, {userId: user._id.toString(), email: user.email})
 
     res.status(201).json({
         user: {
@@ -64,7 +64,7 @@ export async function login(req, res) {
         return;
     }
 
-    setSessionCookie(res, {userID: user._id.toString(), email: user.email})
+    setSessionCookie(res, {userId: user._id.toString(), email: user.email})
 
     res.status(201).json({
         user: {
@@ -92,10 +92,10 @@ export async function me(req, res) {
         return
     }
 
-    const user = await User.findById(req.user.userID).select("-password")
+    const user = await User.findById(req.user.userId).select("-password")
     if(!user){
         res.status(404).json({error: "User not found"})
         return
     }
-    res.json(user)
+    res.json({user})
 }

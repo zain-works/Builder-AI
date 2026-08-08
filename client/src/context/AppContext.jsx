@@ -32,7 +32,7 @@ export function AppContextProvider({children}){
     const checkSession = async()=>{
         try {
             const {data} = await api.get("/api/auth/me")
-            setUser(data.user);
+            setUser(data.user || data);
         } catch (error) {
             setUser(null)
         }finally{
@@ -66,7 +66,7 @@ export function AppContextProvider({children}){
             navigate("/")
         } catch (err) {
             console.error("Registration failed:", err)
-            const errMsg = err?.responce?.data?.error || "Registration failed"
+            const errMsg = err?.response?.data?.error || "Registration failed"
             toast.error(errMsg)
             throw new Error(errMsg)
         }
@@ -183,7 +183,7 @@ export function AppContextProvider({children}){
             if(!activeProject || !user) return
             setChatLoading(true)
             try {
-                const {data} = await api.post(`/api/projects/${activeProject._id/chat}`,{prompt})
+                const {data} = await api.post(`/api/projects/${activeProject._id}/chat`,{prompt})
                 setActiveProject(data)
                 if(data.errors && data.errors.length > 0){
                     toast.error(`${data.errors.length} revision patch(es) failed`)
